@@ -1,0 +1,80 @@
+texts = [doc['content'] for doc in docs]
+    embeddings = embedding_model.encode(texts)
+    
+    # Apply doc_type specific adjustments if provided
+    if doc_type:
+        # Add doc_type metadata to each document
+        for doc in docs:
+            doc['doc_type'] = doc_type
+    
+    for i, doc in enumerate(docs):
+        doc['embedding'] = embeddings[i]
+    return docs
+=======
+def compute_embeddings(docs, doc_type=None):
+    # Filter out docs with empty or None content
+    filtered_docs = [doc for doc in docs if doc.get('content') and doc['content'].strip()]
+    if not filtered_docs:
+        print("⚠️ No valid documents with content to embed.")
+        return []
+
+    texts = [doc['content'] for doc in filtered_docs]
+    embeddings = embedding_model.encode(texts)
+    
+    # Apply doc_type specific adjustments if provided
+    if doc_type:
+        # Add doc_type metadata to each document
+        for doc in filtered_docs:
+            doc['doc_type'] = doc_type
+    
+    for i, doc in enumerate(filtered_docs):
+        doc['embedding'] = embeddings[i]
+    return filtered_docs
+>>>>>>> REPLACE
+
+<<<<<<< SEARCH
+def save_faiss_index(docs):
+    embeddings = [doc['embedding'] for doc in docs]
+    embeddings_np = np.array(embeddings).astype("float32")
+
+    d = embeddings_np.shape[1]
+    
+    # Use FlatL2 for small datasets, IVFPQ for large ones
+    if len(embeddings) < 100:
+        print(f"⚠️ Too few embeddings ({len(embeddings)}) for quantized FAISS. Using FlatL2 fallback.")
+        index = faiss.IndexFlatL2(d)
+    else:
+        print(f"✅ Using IVFPQ with {len(embeddings)} embeddings")
+        quantizer = faiss.IndexFlatL2(d)
+        index = faiss.IndexIVFPQ(quantizer, d, 100, 8, 8)
+        index.train(embeddings_np)
+    
+    index.add(embeddings_np)
+
+    with open(VECTOR_STORE_PATH, "wb") as f:
+        pickle.dump((index, docs), f)
+=======
+def save_faiss_index(docs):
+    embeddings = [doc['embedding'] for doc in docs if 'embedding' in doc]
+    if len(embeddings) == 0:
+        print("⚠️ No embeddings available to save FAISS index.")
+        return
+
+    embeddings_np = np.array(embeddings).astype("float32")
+
+    d = embeddings_np.shape[1]
+    
+    # Use FlatL2 for small datasets, IVFPQ for large ones
+    if len(embeddings) < 100:
+        print(f"⚠️ Too few embeddings ({len(embeddings)}) for quantized FAISS. Using FlatL2 fallback.")
+        index = faiss.IndexFlatL2(d)
+    else:
+        print(f"✅ Using IVFPQ with {len(embeddings)} embeddings")
+        quantizer = faiss.IndexFlatL2(d)
+        index = faiss.IndexIVFPQ(quantizer, d, 100, 8, 8)
+        index.train(embeddings_np)
+    
+    index.add(embeddings_np)
+
+    with open(VECTOR_STORE_PATH, "wb") as f:
+        pickle.dump((index, docs), f)

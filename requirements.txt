@@ -1,0 +1,17 @@
+streamlit
+openai>=1.0.0
+sentence-transformers
+faiss-cpu
+python-docx
+python-pptx
+pdfplumber
+pdf2image
+pandas
+langchain
+chromadb
+scikit-learn
+python-dotenv
+tf-keras
+hnswlib
+torch
+transformers
