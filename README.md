@@ -63,53 +63,49 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### 4. 🗂️ Create Required Folders
+
+Create the following directories if they don’t exist:
+
+```bash
+mkdir data models vector_store
+```
+
+These folders are used to store:
+- `data/` — uploaded PDFs and documents
+- `models/` — downloaded SentenceTransformer / ColBERT models
+- `vector_store/` — persistent FAISS, ChromaDB, and memory storage
+
+> ✅ You must ensure these folders are present before running the app.
+
 ---
 
-## 🔑 Environment Variables (`.env`)
+### 5. 🔑 Setup Environment Variables
 
-### Create a `.env` file in the project root:
+Create a `.env` file at the root with your API keys and preferences:
 
-```
-OPENROUTER_API_KEY=your_openrouter_api_key
-OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+```env
+OPENROUTER_API_KEY=your_openrouter_key
 DEFAULT_MODEL=openrouter/openai/gpt-4
-
 MODEL_1=openrouter/openai/gpt-4
 MODEL_2=openrouter/anthropic/claude-3-opus
 MODEL_3=openrouter/grok-1
-
 TEMPERATURE=0.4
-API_TIMEOUT=30
-MAX_RETRIES=3
 ```
-
-You can modify `DEFAULT_MODEL` or fallback model values as per your OpenRouter availability.
 
 ---
 
-## 📂 Poppler Setup (for PDF rendering)
+### 6. 📂 Setup Poppler (for PDF preview rendering)
 
-PDF previews use `pdf2image`, which requires Poppler binaries.
+#### 🪟 Windows
 
-### 🔧 Windows:
+- Download from: https://github.com/oschwartz10612/poppler-windows/releases/
+- Extract to:  
+  ```
+  documind-main/poppler/Library/bin
+  ```
 
-1. Download Poppler from:  
-   https://github.com/oschwartz10612/poppler-windows/releases/
-2. Extract to:
-   ```
-   docu-mentor/poppler/Library/bin
-   ```
-3. Final structure:
-   ```
-   docu-mentor/
-   ├── viewer_component.py
-   └── poppler/
-       └── Library/
-           └── bin/
-               └── pdftoppm.exe, etc.
-   ```
-
-### 🐧 Linux / Mac:
+#### 🐧 Linux / macOS
 
 ```bash
 sudo apt install poppler-utils
@@ -117,7 +113,7 @@ sudo apt install poppler-utils
 
 ---
 
-## 💡 How to Run
+### 7. 🚀 Launch the App
 
 ```bash
 streamlit run app.py
