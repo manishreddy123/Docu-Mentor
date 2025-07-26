@@ -180,17 +180,18 @@ docu-mentor/
 
 ```mermaid
 graph TD
-    A[📤 Upload PDF] --> B[📄 Parse & Chunk]
-    B --> C[🔡 Embed with BGE]
-    C --> D[🔁 Deduplicate Similar Chunks]
-    D --> E[🔍 Classify Intent (\"statistical\", \"causal\", etc.)]
-    E --> F[✏️ Rewrite Query for Retrieval]
-    F --> G[🔎 Semantic Search (FAISS, Chroma, HNSW)]
-    G --> H[⚖️ Hybrid Reranking (ColBERT, CrossEncoder, ReAct)]
-    H --> I[📚 Select Top-k Chunks]
-    I --> J[🤖 Answer with LLM (GPT-4, Claude)]
-    J --> K[📄 Extract Source References]
-    K --> L[💬 Final Answer + Page Numbers Displayed]
+    A[Upload PDF] --> B[Parse and Chunk]
+    B --> C[Embed Chunks]
+    C --> D[Deduplicate Chunks]
+    D --> E[Classify Query Intent]
+    E --> F[Rewrite Query]
+    F --> G[Semantic Search: FAISS, Chroma, HNSW]
+    G --> H[Rerank with ColBERT and CrossEncoder]
+    H --> I[Select Top-k Chunks]
+    I --> J[Generate Answer using LLM]
+    J --> K[Extract Source References]
+    K --> L[Display Answer and Page Numbers]
+
 ```
 
 ---
