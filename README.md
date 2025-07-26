@@ -137,7 +137,6 @@ docu-mentor/
 ├── streaming_response.py
 ├── config.py
 ├── requirements.txt
-├── environment.yaml
 ├── README.md
 ├── .env
 │
@@ -184,13 +183,13 @@ graph TD
     A[📤 Upload PDF] --> B[📄 Parse & Chunk]
     B --> C[🔡 Embed with BGE]
     C --> D[🔁 Deduplicate Similar Chunks]
-    D --> E[🔍 Classify Intent (statistical, causal...)]
+    D --> E[🔍 Classify Intent (\"statistical\", \"causal\", etc.)]
     E --> F[✏️ Rewrite Query for Retrieval]
     F --> G[🔎 Semantic Search (FAISS, Chroma, HNSW)]
-    G --> H[⚖️ Hybrid Reranking (ColBERT + CrossEncoder + ReAct)]
+    G --> H[⚖️ Hybrid Reranking (ColBERT, CrossEncoder, ReAct)]
     H --> I[📚 Select Top-k Chunks]
-    I --> J[🤖 Answer with LLM (GPT-4 / Claude)]
-    J --> K[📄 Reference Pages Extracted]
+    I --> J[🤖 Answer with LLM (GPT-4, Claude)]
+    J --> K[📄 Extract Source References]
     K --> L[💬 Final Answer + Page Numbers Displayed]
 ```
 
